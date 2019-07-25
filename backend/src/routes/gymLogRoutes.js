@@ -4,7 +4,7 @@ const bcypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { JWT_KEY } = require("../../envorment.json");
 
-module.exports = function (app, db) {
+module.exports = function(app, db) {
     const collection = db
         .db("404UsernameNotFound404")
         .collection("usersCredentials");
@@ -116,26 +116,66 @@ module.exports = function (app, db) {
             });
         }
     });
-    app.post("/addworkout", async (req, res) => {
-        console.log('trying to add workout');
-        console.log(req.body.title + 'if it works this should be title');
-        console.log(req.body.exercises);
-        console.log(req.body.username);
-        const workout = {
-            title: req.body.title,
-            exercises: req.body.exercises,
-            username: req.body.username
-        };
-        console.log(workout);
-        workoutData.insertOne(workout, (err, results) => {
-            if (err) {
-                console.log(err);
-                res.send({ err: "an error has occured" });
-            } else {
-                res.send(results.ops[0]);
-            }
-        });
+    app.post("/workout", async (req, res) => {
+        try {
+            const decoded = await jwt.verify(req.body.token, JWT_KEY);
+            console.log(decoded);
+            const { body } = req;
+            const workout = {
+                title: body.title,
+                exercises: body.exercises,
+                username: decoded.username,
+                date: {
+                    year: body.date.year,
+                    month: body.date.month,
+                    day: body.date.day
+                }
+            };
+            workoutData
+                .find({ username: decoded.username })
+                .toArray((err, results) => {
+                    if (results.length < 20) {
+                        workoutData.insertOne(workout, (err, results) => {
+                            if (err) {
+                                console.log(err);
+                                // res.send({ err: "an error has occured" });
+                            } else {
+                                // res.send(results);
+                            }
+                        });
+                    }
+                });
+        } catch (error) {
+            console.log(error);
+            res.status(401);
+            res.send({ message: "Could not delete workout" });
+        }
         res.end();
+    });
+    app.delete("/workout", async (req, res) => {
+        console.log("delete");
+        try {
+            const decoded = await jwt.verify(req.body.token, JWT_KEY);
+            console.log(decoded);
+            const details = {
+                _id: new OBjectID(req.body.id),
+                username: decoded.username
+            };
+            console.log(details);
+            workoutData.deleteOne(details, (err, item) => {
+                if (err) {
+                    console.log(err + "error");
+                } else {
+                    console.log("succes");
+                    console.log(item);
+                    res.send("success");
+                }
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(401);
+            res.send({ message: "Could not delete workout" });
+        }
     });
 };
 
@@ -147,7 +187,7 @@ function Token(payload, privateKey) {
             {
                 expiresIn: "1h"
             },
-            function (err, token2) {
+            function(err, token2) {
                 if (err) reject(err);
                 else resolve(token2);
             }

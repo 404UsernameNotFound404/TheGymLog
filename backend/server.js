@@ -7,7 +7,7 @@ var portfinder = require("portfinder");
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }), cors());
+app.use(bodyParser.urlencoded({ extended: true }), bodyParser.json(), cors());
 
 MongoClient.connect(db.url, { useNewUrlParser: true }, (err, database) => {
     if (err) {

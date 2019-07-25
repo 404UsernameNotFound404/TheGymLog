@@ -1,0 +1,9 @@
+<Workout
+    id={"asd"}
+    title={"title"}
+    exerciseDesc={[
+        { name: "name", reps: "10", sets: "3" },
+        { name: "name", reps: "10", sets: "3" }
+    ]}
+    deleteWorkout={deleteWorkout}
+/>
