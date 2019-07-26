@@ -1,15 +1,17 @@
 import React, { Component, useState, useEffect } from "react";
 import styled from "styled-components";
 
-const ExercisesContainer = styled.div``;
+const ExercisesContainer = styled.div`
+    width: 20%;
+`;
 
 const ExerciseInputContainer = styled.div`
     display: flex;
+    width: 35%;
 `;
 
 const InputForExercise = styled.input`
-    min-width: 4em;
-    max-width: 7em;
+    width: 100%;
     height: 2em;
     margin: auto 0;
     margin-left: 0.1em;

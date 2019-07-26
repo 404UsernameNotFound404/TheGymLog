@@ -7,7 +7,8 @@ const ExerciseContainer = styled.div`
 `;
 
 const ExerciseCollum = styled.h4`
-    margin: 0.25em 0.5em;
+    margin: 0.5em 0em;
+    width: 35%;
 `;
 type Props = {
     collums: [collumType];
@@ -20,7 +21,7 @@ function Exercise(props: Props) {
                 return (
                     <ExerciseCollum>{`${ele.title}: ${
                         ele.value
-                    }`}</ExerciseCollum>
+                        }`}</ExerciseCollum>
                 );
             })}
         </ExerciseContainer>

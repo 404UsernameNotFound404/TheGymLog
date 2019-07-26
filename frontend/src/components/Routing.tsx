@@ -58,7 +58,7 @@ function Routing() {
                 setToken(xhr.response);
             }
         };
-        xhr.open("POST", "http://kan5196:8000/login");
+        xhr.open("POST", "http://localhost:8000/login");
         xhr.setRequestHeader(
             "Content-Type",
             "application/x-www-form-urlencoded"
@@ -75,7 +75,7 @@ function Routing() {
             }
             console.log(response);
         };
-        xhr.open("POST", "http://kan5196:8000/register");
+        xhr.open("POST", "http://localhost:8000/register");
         xhr.setRequestHeader(
             "Content-Type",
             "application/x-www-form-urlencoded"

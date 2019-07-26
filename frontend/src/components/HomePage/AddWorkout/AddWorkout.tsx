@@ -96,7 +96,7 @@ function AddWorkout(props: Props) {
 
     let createWorkout = () => {
         if (exercises.length > 1 && props.numberOfWorkouts < 20) {
-            fetch("http://kan5196:8000/workout", {
+            fetch("http://localhost:8000/workout", {
                 method: "POST",
                 headers: {
                     Accept: "application/json",

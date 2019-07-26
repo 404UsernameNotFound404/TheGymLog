@@ -147,7 +147,7 @@ function HomePage(props: Props) {
                 console.log(error);
             }
         };
-        xhr.open("POST", "http://kan5196:8000/workouts");
+        xhr.open("POST", "http://localhost:8000/workouts");
         xhr.setRequestHeader(
             "Content-Type",
             "application/x-www-form-urlencoded"
@@ -160,7 +160,7 @@ function HomePage(props: Props) {
         xhr.onload = async () => {
             apiFetch();
         };
-        xhr.open("DELETE", "http://kan5196:8000/workout");
+        xhr.open("DELETE", "http://localhost:8000/workout");
         xhr.setRequestHeader(
             "Content-Type",
             "application/x-www-form-urlencoded"
