@@ -130,7 +130,7 @@ function HomePage(props: Props) {
             }
         }
         return newArray;
-    };
+    };//clean up it's a fucking mess
 
     let apiFetch = async () => {
         console.log("fetchApi");

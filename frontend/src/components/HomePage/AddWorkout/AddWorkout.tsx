@@ -18,7 +18,7 @@ const WorkoutTitle = styled.input`
 
 const WorkoutHistory = styled.div`
     border: rgb(100, 100, 100) thin solid;
-    width: 35%;
+    width: 40%;
     padding: 2em 1.5%;
     margin: 2em 1.5%;
 `;
@@ -79,9 +79,9 @@ function AddWorkout(props: Props) {
     const [titleInput, setTitleInput] = useState<string>("Title");
     const [exercises, setExercises] = useState<Exercise[]>([]);
     const [date, setDate] = useState<{ title: string; value: string }[]>([
-        { title: "year", value: "2001" },
-        { title: "month", value: "02" },
-        { title: "day", value: "21" }
+        { title: "Year", value: "2001" },
+        { title: "Month", value: "02" },
+        { title: "Day", value: "21" }
     ]);
 
     let updateTitle = (event: any) => {
@@ -117,10 +117,11 @@ function AddWorkout(props: Props) {
                     console.log(res);
                     return res;
                 })
-                .then(() => {
-                    return "test";
+                .then(res => {
+                    console.log(res);
+                    return res;
                 })
-                .then(() => {
+                .then(res => {
                     props.fetchApi();
                 });
         }

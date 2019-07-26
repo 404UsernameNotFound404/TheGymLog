@@ -7,14 +7,14 @@ const ExercisesContainer = styled.div`
 
 const ExerciseInputContainer = styled.div`
     display: flex;
-    width: 35%;
+    width: 40%;
 `;
 
 const InputForExercise = styled.input`
     width: 100%;
     height: 2em;
-    margin: auto 0;
-    margin-left: 0.1em;
+    margin: auto 0em;
+    margin-left: 0.3em;
     border: none;
     :focus {
         outline: none;

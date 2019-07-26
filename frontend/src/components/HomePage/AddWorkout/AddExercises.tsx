@@ -41,9 +41,10 @@ function AddExercises(props: Props) {
             maxInput: number;
         }[]
     >([
-        { id: "0", value: "", name: "Name", number: false, maxInput: 8 },
-        { id: "1", value: "", name: "Reps", number: true, maxInput: 8 },
-        { id: "2", value: "", name: "sets", number: true, maxInput: 8 }
+        { id: "0", value: "Bicep Curl", name: "Name", number: false, maxInput: 8 },
+        { id: "1", value: "10", name: "Reps", number: true, maxInput: 8 },
+        { id: "2", value: "3", name: "Sets", number: true, maxInput: 8 },
+        { id: "3", value: "20", name: "Weight", number: true, maxInput: 8 }
     ]);
     let updateExercises = (event: any) => {
         let newInputs: any = Inputs.map(ele => {
@@ -65,9 +66,10 @@ function AddExercises(props: Props) {
         if (validInput) {
             props.addExercise({
                 collums: [
-                    { title: "name", value: Inputs[0].value },
-                    { title: "reps", value: Inputs[1].value },
-                    { title: "sets", value: Inputs[2].value }
+                    { title: "Name", value: Inputs[0].value },
+                    { title: "Reps", value: Inputs[1].value },
+                    { title: "Sets", value: Inputs[2].value },
+                    { title: "Weights", value: Inputs[3].value },
                 ]
             });
         }

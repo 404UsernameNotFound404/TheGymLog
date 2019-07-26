@@ -8,7 +8,7 @@ const ExerciseContainer = styled.div`
 
 const ExerciseCollum = styled.h4`
     margin: 0.5em 0em;
-    width: 35%;
+    width: 40%;
 `;
 type Props = {
     collums: [collumType];

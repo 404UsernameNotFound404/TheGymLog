@@ -36,9 +36,9 @@ function AddDate(props: Props) {
             title: string;
         }[]
     >([
-        { id: "0", value: "2019", number: true, maxInput: 4, title: "year" },
-        { id: "1", value: "08", number: true, maxInput: 2, title: "month" },
-        { id: "2", value: "22", number: true, maxInput: 2, title: "day" }
+        { id: "0", value: "2019", number: true, maxInput: 4, title: "Year" },
+        { id: "1", value: "08", number: true, maxInput: 2, title: "Month" },
+        { id: "2", value: "22", number: true, maxInput: 2, title: "Day" }
     ]);
 
     let updateExercises = (event: any) => {
@@ -51,7 +51,7 @@ function AddDate(props: Props) {
         setDateInputs(newInputs);
     };
 
-    let setDate = () => {};
+    let setDate = () => { };
 
     return (
         <>
@@ -73,9 +73,9 @@ function AddDate(props: Props) {
             <SetDateButon
                 onClick={() => {
                     props.updateDate([
-                        { title: "year", value: dateInputs[0].value },
-                        { title: "month", value: dateInputs[1].value },
-                        { title: "day", value: dateInputs[2].value }
+                        { title: "Year", value: dateInputs[0].value },
+                        { title: "Month", value: dateInputs[1].value },
+                        { title: "Day", value: dateInputs[2].value }
                     ]);
                 }}
             >

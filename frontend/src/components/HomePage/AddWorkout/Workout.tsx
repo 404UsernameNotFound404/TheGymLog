@@ -10,7 +10,7 @@ const WorkoutTitle = styled.h1`
 
 const WorkoutHistory = styled.div`
     border: rgb(100, 100, 100) thin solid;
-    width: 27%;
+    width: 43%;
     padding: 2em 1.5%;
     margin: 2em 1.5%;
 `;
@@ -56,7 +56,7 @@ function Workout(props: Props) {
                 <WorkoutTitle>{title}</WorkoutTitle>
                 <DateText>{`${props.date.year}-${props.date.month}-${
                     props.date.day
-                }`}</DateText>
+                    }`}</DateText>
                 <DeleteButton
                     onClick={() => {
                         props.deleteWorkout(props.id);
