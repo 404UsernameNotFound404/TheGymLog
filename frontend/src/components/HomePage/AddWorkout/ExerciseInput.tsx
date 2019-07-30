@@ -28,6 +28,25 @@ const InputTitle = styled.h4`
     height: 2em;
 `;
 
+const ExerciseCollumValue = styled.input`
+    font-weight: lighter;
+    margin: 0;
+    border: none;
+    width: 100%;
+    :focus {
+        outline: none;
+    }
+`;
+
+const FieldContainer = styled.div`
+    width: 40%;
+    margin: 0.5em 0;
+`;
+
+const ExerciseCollumTitle = styled.h4`
+    margin: 0;
+`;
+
 type Props = {
     inputValue: string;
     onInputUpdate: any;
@@ -35,33 +54,46 @@ type Props = {
     id: string;
     number: boolean;
     maxInput: number;
+    disabled: boolean;
 };
 
 function ExerciseInput(props: Props) {
     let checkInput = (event: any) => {
         let input = event.target.value;
-        if (props.number) {
-            if (
-                (!isNaN(input[input.length - 1]) || input.length === 0) &&
-                input.length < props.maxInput + 1
-            ) {
-                props.onInputUpdate(event);
+        if (!props.disabled) {
+            if (props.number) {
+                if (
+                    (!isNaN(input[input.length - 1]) || input.length === 0) &&
+                    input.length < props.maxInput + 1
+                ) {
+                    props.onInputUpdate(event);
+                }
+            } else {
+                if (input.length < props.maxInput + 1) {
+                    props.onInputUpdate(event);
+                }
             }
-        } else {
-            props.onInputUpdate(event);
         }
     };
-
-    return (
-        <ExerciseInputContainer>
-            <InputTitle>{props.title + ":"}</InputTitle>
-            <InputForExercise
-                name={props.id}
-                value={props.inputValue}
-                onChange={checkInput}
-            />
-        </ExerciseInputContainer>
-    );
+    if (props.disabled) {
+        return (
+            <FieldContainer>
+                <ExerciseCollumTitle>{`${props.title}`}</ExerciseCollumTitle>
+                <ExerciseCollumValue value={props.inputValue} />
+            </FieldContainer>
+        );
+    } else {
+        return (
+            <ExerciseInputContainer>
+                <InputTitle>{props.title + ":"}</InputTitle>
+                <InputForExercise
+                    name={props.id}
+                    value={props.inputValue}
+                    onChange={checkInput}
+                />
+            </ExerciseInputContainer>
+        );
+    }
 }
 
 export default ExerciseInput;

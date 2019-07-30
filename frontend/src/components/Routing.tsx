@@ -10,6 +10,7 @@ import {
     Redirect,
     BrowserRouter
 } from "react-router-dom";
+import { BaseURL } from "../types";
 
 const TitleContainer = styled.div`
     border-bottom: solid grey thin;
@@ -58,7 +59,7 @@ function Routing() {
                 setToken(xhr.response);
             }
         };
-        xhr.open("POST", "http://localhost:8000/login");
+        xhr.open("POST", `${BaseURL}/login`);
         xhr.setRequestHeader(
             "Content-Type",
             "application/x-www-form-urlencoded"
@@ -75,7 +76,7 @@ function Routing() {
             }
             console.log(response);
         };
-        xhr.open("POST", "http://localhost:8000/register");
+        xhr.open("POST", `${BaseURL}/register`);
         xhr.setRequestHeader(
             "Content-Type",
             "application/x-www-form-urlencoded"

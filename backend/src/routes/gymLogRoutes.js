@@ -4,7 +4,7 @@ const bcypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { JWT_KEY } = require("../../envorment.json");
 
-module.exports = function (app, db) {
+module.exports = function(app, db) {
     const collection = db
         .db("404UsernameNotFound404")
         .collection("usersCredentials");
@@ -117,40 +117,50 @@ module.exports = function (app, db) {
         }
     });
     app.post("/workout", async (req, res) => {
-        const decoded = await jwt.verify(req.body.token, JWT_KEY, (err, decoded) => {
-            if (err) {
-                res.status(401)
-                res.send("Auth failed");
-                console.log('Auth failed');
-            } else {
-                const { body } = req;
-                const workout = {
-                    title: body.title,
-                    exercises: body.exercises,
-                    username: decoded.username,
-                    date: {
-                        year: body.date.year,
-                        month: body.date.month,
-                        day: body.date.day
-                    }
-                };
-                workoutData
-                    .find({ username: decoded.username })
-                    .toArray((err, results) => {
-                        if (results.length < 20) {
-                            workoutData.insertOne(workout, (err, results) => {
-                                if (err) {
-                                    console.log(error);
-                                    res.status(401);
-                                    res.send({ message: "Could not delete workout" });
-                                } else {
-                                    res.send(results);
-                                }
-                            });
+        const decoded = await jwt.verify(
+            req.body.token,
+            JWT_KEY,
+            (err, decoded) => {
+                if (err) {
+                    res.status(401);
+                    res.send("Auth failed");
+                    console.log("Auth failed");
+                } else {
+                    const { body } = req;
+                    const workout = {
+                        title: body.title,
+                        exercises: body.exercises,
+                        username: decoded.username,
+                        date: {
+                            year: body.date.year,
+                            month: body.date.month,
+                            day: body.date.day
                         }
-                    });
+                    };
+                    workoutData
+                        .find({ username: decoded.username })
+                        .toArray((err, results) => {
+                            if (results.length < 20) {
+                                workoutData.insertOne(
+                                    workout,
+                                    (err, results) => {
+                                        if (err) {
+                                            console.log(error);
+                                            res.status(401);
+                                            res.send({
+                                                message:
+                                                    "Could not delete workout"
+                                            });
+                                        } else {
+                                            res.send(results);
+                                        }
+                                    }
+                                );
+                            }
+                        });
+                }
             }
-        });
+        );
     });
     app.delete("/workout", async (req, res) => {
         console.log("delete");
@@ -177,6 +187,39 @@ module.exports = function (app, db) {
             res.send({ message: "Could not delete workout" });
         }
     });
+    app.put("/workout", (req, res) => {
+        const { body } = req;
+        jwt.verify(req.body.token, JWT_KEY, (err, decoded) => {
+            if (err) {
+                res.status(420);
+                res.send("Auth failed at err decpded");
+            } else {
+                const filter = { _id: new OBjectID(body.id) };
+                const updatedWorkout = {
+                    $set: {
+                        title: body.title,
+                        exercises: body.exercises,
+                        username: decoded.username,
+                        date: {
+                            year: body.date.year,
+                            month: body.date.month,
+                            day: body.date.day
+                        }
+                    }
+                };
+                console.log(filter);
+                workoutData.updateOne(filter, updatedWorkout, (err, item) => {
+                    if (err) {
+                        console.log(err);
+                        res.status(401);
+                        res.send("Auth Failed");
+                    } else {
+                        res.send(`Updated: ${item}`);
+                    }
+                });
+            }
+        });
+    });
 };
 
 function Token(payload, privateKey) {
@@ -187,7 +230,7 @@ function Token(payload, privateKey) {
             {
                 expiresIn: "1h"
             },
-            function (err, token2) {
+            function(err, token2) {
                 if (err) reject(err);
                 else resolve(token2);
             }

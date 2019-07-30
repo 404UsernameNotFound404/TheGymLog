@@ -4,7 +4,7 @@ import Workout from "./Workout";
 import Exercise from "./Exercise";
 import AddExercises from "./AddExercises";
 import AddDate from "./AddDate";
-import { collumType } from "../../../types";
+import { collumType, BaseURL } from "../../../types";
 
 const WorkoutTitle = styled.input`
     font-size: 1.75em;
@@ -96,7 +96,7 @@ function AddWorkout(props: Props) {
 
     let createWorkout = () => {
         if (exercises.length > 1 && props.numberOfWorkouts < 20) {
-            fetch("http://localhost:8000/workout", {
+            fetch(`${BaseURL}/workout`, {
                 method: "POST",
                 headers: {
                     Accept: "application/json",
@@ -130,14 +130,20 @@ function AddWorkout(props: Props) {
         <WorkoutHistory>
             <WorkoutTitle value={titleInput} onChange={updateTitle} />
             <ExerciseContinaer>
-                {exercises.map((ele: any, i: number) => {
+                {/* {exercises.map((ele: any, i: number) => {
                     console.log(ele.collums);
-                    return <Exercise collums={ele.collums} key={i} />;
-                })}
+                    return (
+                        <Exercise
+                            onChange={() => {}}
+                            collums={ele.collums}
+                            key={i}
+                        />
+                    );
+                })} */}
                 <AddExercises addExercise={createExercise} />
             </ExerciseContinaer>
             <DateTitle>Date</DateTitle>
-            <Exercise collums={date as any} />
+            {/* <Exercise onChange={() => {}} collums={date as any} /> */}
             <AddDate updateDate={setDate} />
             <AddWorkoutButton onClick={createWorkout}>
                 Add Workout

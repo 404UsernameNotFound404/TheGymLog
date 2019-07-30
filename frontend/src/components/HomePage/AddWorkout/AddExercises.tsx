@@ -41,7 +41,13 @@ function AddExercises(props: Props) {
             maxInput: number;
         }[]
     >([
-        { id: "0", value: "Bicep Curl", name: "Name", number: false, maxInput: 8 },
+        {
+            id: "0",
+            value: "Bicep Curl",
+            name: "Name",
+            number: false,
+            maxInput: 20
+        },
         { id: "1", value: "10", name: "Reps", number: true, maxInput: 8 },
         { id: "2", value: "3", name: "Sets", number: true, maxInput: 8 },
         { id: "3", value: "20", name: "Weight", number: true, maxInput: 8 }
@@ -69,7 +75,7 @@ function AddExercises(props: Props) {
                     { title: "Name", value: Inputs[0].value },
                     { title: "Reps", value: Inputs[1].value },
                     { title: "Sets", value: Inputs[2].value },
-                    { title: "Weights", value: Inputs[3].value },
+                    { title: "Weights", value: Inputs[3].value }
                 ]
             });
         }
@@ -87,6 +93,7 @@ function AddExercises(props: Props) {
                             title={ele.name}
                             number={ele.number}
                             maxInput={ele.maxInput}
+                            disabled={false}
                             key={i}
                         />
                     );

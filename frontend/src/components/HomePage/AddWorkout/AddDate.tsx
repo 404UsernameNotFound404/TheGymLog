@@ -51,7 +51,7 @@ function AddDate(props: Props) {
         setDateInputs(newInputs);
     };
 
-    let setDate = () => { };
+    let setDate = () => {};
 
     return (
         <>
@@ -65,6 +65,7 @@ function AddDate(props: Props) {
                             id={ele.id}
                             number={ele.number}
                             maxInput={ele.maxInput}
+                            disabled={false}
                             key={i}
                         />
                     );

@@ -2,6 +2,7 @@ import React, { Component, useState, useEffect } from "react";
 import styled from "styled-components";
 import Workout from "./AddWorkout/Workout";
 import AddWorkout from "./AddWorkout/AddWorkout";
+import { BaseURL } from "../../types";
 
 const HomePageContainer = styled.div`
     width: 75em;
@@ -112,11 +113,6 @@ function HomePage(props: Props) {
                                 array.splice(x, 1);
                                 found = true;
                             }
-                        } else {
-                            console.log("found one");
-                            biggest = array[x];
-                            array.splice(x, 1);
-                            found = true;
                         }
                     }
                 }
@@ -130,7 +126,7 @@ function HomePage(props: Props) {
             }
         }
         return newArray;
-    };//clean up it's a fucking mess
+    }; //clean up it's a fucking mess
 
     let apiFetch = async () => {
         console.log("fetchApi");
@@ -147,7 +143,7 @@ function HomePage(props: Props) {
                 console.log(error);
             }
         };
-        xhr.open("POST", "http://localhost:8000/workouts");
+        xhr.open("POST", `${BaseURL}/workouts`);
         xhr.setRequestHeader(
             "Content-Type",
             "application/x-www-form-urlencoded"
@@ -160,7 +156,7 @@ function HomePage(props: Props) {
         xhr.onload = async () => {
             apiFetch();
         };
-        xhr.open("DELETE", "http://localhost:8000/workout");
+        xhr.open("DELETE", `${BaseURL}/workout`);
         xhr.setRequestHeader(
             "Content-Type",
             "application/x-www-form-urlencoded"
@@ -168,6 +164,7 @@ function HomePage(props: Props) {
         console.log(id);
         xhr.send(`token=${props.token}&id=${id}`);
     };
+
     return (
         <HomePageContainer>
             <QuoteContainer>
@@ -177,11 +174,16 @@ function HomePage(props: Props) {
                 </QuoteOfTheDay>
                 <QuoteAuthor>-Kenau Reeves</QuoteAuthor>
             </QuoteContainer>
-            <AddWorkout
-                fetchApi={apiFetch}
-                username={props.username}
-                token={props.token}
+            <Workout
+                id={""}
+                title={"Title"}
+                exerciseDesc={[]}
+                date={{ year: "2019", month: "08", day: "22" }}
+                deleteWorkout={() => {}}
+                editModeLock={true}
                 numberOfWorkouts={workouts.length}
+                apiFetch={apiFetch}
+                token={props.token}
             />
             <WorkoutHistory>
                 {workouts.map((ele: any, i: number) => {
@@ -192,6 +194,10 @@ function HomePage(props: Props) {
                             exerciseDesc={ele.exercises}
                             date={ele.date}
                             deleteWorkout={deleteWorkout}
+                            editModeLock={false}
+                            token={props.token}
+                            numberOfWorkouts={0}
+                            apiFetch={apiFetch}
                             key={i}
                         />
                     );
