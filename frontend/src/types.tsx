@@ -3,4 +3,4 @@ export type collumType = {
     value: string;
 };
 
-export const BaseURL = "http://kan5196:8000";
+export const BaseURL = "http://localhost:8000";

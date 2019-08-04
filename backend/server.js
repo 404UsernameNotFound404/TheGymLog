@@ -9,6 +9,10 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }), bodyParser.json(), cors());
 
+// app.listen(8000, () => {
+//     console.log("Listening on port " + 8000);
+// });
+console.log(db.url);
 MongoClient.connect(db.url, { useNewUrlParser: true }, (err, database) => {
     if (err) {
         console.log(
@@ -20,13 +24,9 @@ MongoClient.connect(db.url, { useNewUrlParser: true }, (err, database) => {
         // require("./src/routes")(app, database);
         require("./src/routes")(app, database);
         let port;
-        portfinder.getPort((err, openPort) => {
-            if (err) {
-                console.log(err);
-            }
-            app.listen(8000, () => {
-                console.log("Listening on port " + 8000);
-            });
+
+        app.listen(8000, () => {
+            console.log("Listening on port " + 8000);
         });
     }
 });
